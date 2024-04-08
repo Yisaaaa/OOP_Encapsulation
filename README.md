@@ -1,4 +1,4 @@
-# OOP_Encapsulation
+# Object Oriented Programming: Encapsulation
 Our activity for our course Object Oriented Programming.
 
 ## Problem Statement 
