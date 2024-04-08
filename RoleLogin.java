@@ -14,7 +14,7 @@ public class RoleLogin implements ActionListener {
 		return "password";
 	}
 	
-	RoleLogin(){
+	public RoleLogin(){
 		roleFrame = new JFrame();
 		
 		loginPanel = new JPanel();
@@ -36,6 +36,8 @@ public class RoleLogin implements ActionListener {
 		loginPanel.add(user);
 		roleFrame.add(loginPanel);
 		roleFrame.setVisible(true);
+
+
 	}
 
 
@@ -49,10 +51,16 @@ public class RoleLogin implements ActionListener {
 				String enteredPassString = new String(enteredPass);
 				if (RoleLogin.pass().equals(enteredPassString)) {
 					System.out.println("Entered!");
+
+					roleFrame.dispose();
+					new AdminHome();
 				} else {
 					JOptionPane.showMessageDialog(admin, "Wrong password!");
 				}
 			}
+		} else if (e.getSource() == user) {
+			System.out.println("logged in as user");
+
 		}
 	}
 }
