@@ -18,4 +18,4 @@ Your Book class **should have the following features**:
 * [Luis Ryan Sanisit](https://github.com/Yisaaaa/)
 * [Jose Neil Silagan](https://github.com/ArjTheProgrammer)
 * [Emenel Flores]()
-* [Dan Isip]()
+* [Dan Isip](https://github.com/DenJiwoo)
