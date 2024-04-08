@@ -31,6 +31,7 @@ public class RoleLogin implements ActionListener {
 		roleFrame.setLayout(null);
 		roleFrame.setSize(500, 500);
 		roleFrame.setResizable(false);
+		roleFrame.setLocationRelativeTo(null);
 		
 		loginPanel.add(admin);
 		loginPanel.add(user);
