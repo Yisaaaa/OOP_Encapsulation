@@ -60,26 +60,30 @@ public class SideBar extends JPanel {
 
         y += 50;
 
-        JPanel btnContainer = new JPanel(new GridLayout(2, 1, 0, 0));
-        btnContainer.setBounds(0, y, width, 100);
-        btnContainer.setBackground(Color.red);
+        JPanel btnContainer;
+        if (isAdmin) {
+            btnContainer = new JPanel(new GridLayout(2, 1, 0, 0));
+            btnContainer.setBounds(0, y, width, 100);
+
+            JButton addBookBtn = new JButton("Add Book");
+            addBookBtn.addActionListener(actionEvent -> {
+                new AdminAddBook();
+            });
+            btnContainer.add(addBookBtn);
+
+        } else {
+            btnContainer = new JPanel(new GridLayout(1, 1, 0, 0));
+            btnContainer.setBounds(0, y, width, 50);
+        }
         btnContainer.setOpaque(true);
 
 
-        JButton addBookBtn = new JButton("Add Book");
-        addBookBtn.addActionListener(actionEvent -> {
-            new AdminAddBook();
+        JButton signOutBtn = new JButton("Sign Out");
+        btnContainer.add(signOutBtn);
+        signOutBtn.addActionListener(actionEvent -> {
+            parent.dispose();
+            new RoleLogin();
         });
-        btnContainer.add(addBookBtn);
-
-        if (isAdmin) {
-            JButton signOutBtn = new JButton("Sign Out");
-            btnContainer.add(signOutBtn);
-            signOutBtn.addActionListener(actionEvent -> {
-                parent.dispose();
-                new RoleLogin();
-            });
-        }
 
         for (Component btn :  btnContainer.getComponents()) {
             JButton casted = (JButton) btn;
