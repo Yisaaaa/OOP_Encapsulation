@@ -6,7 +6,7 @@ import java.nio.file.DirectoryNotEmptyException;
 
 public class Home extends JFrame {
 
-    public Home() {
+    public Home(boolean isAdmin) {
 //        Frame -----------------------------------
         int height = 900;
         int width = 1300;
@@ -19,7 +19,6 @@ public class Home extends JFrame {
         this.setResizable(false);
 
 
-
 //        SIDEBAR -----------------------------------
 //
 //        JPanel sidebar = new JPanel();
@@ -29,7 +28,7 @@ public class Home extends JFrame {
 //
 //        JLabel sideBard
 
-        JPanel sidebar = new SideBar(sideBardWidth, height);
+        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin);
 
 
 
@@ -41,11 +40,13 @@ public class Home extends JFrame {
 
         JPanel mainContainer = new JPanel();
         mainContainer.setPreferredSize(new Dimension(width - sideBardWidth, height));
+        mainContainer.setBackground(new Color(0xfafafa));
 
 
         this.add(mainContainer, BorderLayout.CENTER);
         this.add(sidebar, BorderLayout.LINE_START);
         this.setVisible(true);
+
     }
 
 }
