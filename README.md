@@ -11,7 +11,9 @@ Your Book class **should have the following features**:
 
 
 1. **Encapsulation**: The properties of a book, including its title, author, and number of pages, should be encapsulated within the class, preventing direct access from outside.
+   
 2. **Constructor**: Implement a constructor that initializes the title, author, and number of pages of a book when an instance of the class is created. 
+
 3. **Getter Methods**: Provide getter methods to retrieve the title, author, and number of pages of a book. These methods should allow controlled access to the encapsulated properties, ensuring data integrity and abstraction.
 
 ###  Members
