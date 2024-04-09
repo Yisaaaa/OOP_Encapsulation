@@ -1,4 +1,5 @@
 package src;
+import java.awt.Image;
 
 public class Book {
 
@@ -6,12 +7,14 @@ public class Book {
     private String author;
     private String pages;
     private String desc;
+    private String image;
 
-    public Book(String title, String author, String pages, String desc) {
+    public Book(String title, String author, String pages, String desc, String image) {
         this.title = title;
         this.author = author;
         this.pages  = pages;
         this.desc = desc;
+        this.image = image;
     }
 
 
@@ -29,6 +32,10 @@ public class Book {
 
     public String getDesc() {
         return this.desc;
+    }
+
+    public String getImage(){
+        return this.image;
     }
 
 
