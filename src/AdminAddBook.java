@@ -122,7 +122,7 @@ public class AdminAddBook extends JFrame {
 
     public AdminAddBook() {
 
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
         this.setSize(500,600);

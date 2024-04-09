@@ -28,7 +28,7 @@ public class Home extends JFrame {
 //
 //        JLabel sideBard
 
-        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin);
+        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin, this);
 
 
 

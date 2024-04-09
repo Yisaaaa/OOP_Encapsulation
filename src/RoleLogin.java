@@ -56,7 +56,7 @@ public class RoleLogin implements ActionListener {
 					System.out.println("Entered!");
 
 					roleFrame.dispose();
-					new AdminHome();
+					new Home(true);
 				} else {
 					JOptionPane.showMessageDialog(admin, "Wrong password!");
 				}

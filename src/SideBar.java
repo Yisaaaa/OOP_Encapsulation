@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class SideBar extends JPanel {
-    public SideBar(int width, int height, boolean isAdmin) {
+    public SideBar(int width, int height, boolean isAdmin, JFrame parent) {
         int x = 30;
         int y = 40;
 
@@ -58,12 +58,43 @@ public class SideBar extends JPanel {
 
         libraryContainer.add(library);
 
+        y += 50;
 
+        JPanel btnContainer = new JPanel(new GridLayout(2, 1, 0, 0));
+        btnContainer.setBounds(0, y, width, 100);
+        btnContainer.setBackground(Color.red);
+        btnContainer.setOpaque(true);
+
+
+        JButton addBookBtn = new JButton("Add Book");
+        addBookBtn.addActionListener(actionEvent -> {
+            new AdminAddBook();
+        });
+        btnContainer.add(addBookBtn);
+
+        if (isAdmin) {
+            JButton signOutBtn = new JButton("Sign Out");
+            btnContainer.add(signOutBtn);
+            signOutBtn.addActionListener(actionEvent -> {
+                parent.dispose();
+                new RoleLogin();
+            });
+        }
+
+        for (Component btn :  btnContainer.getComponents()) {
+            JButton casted = (JButton) btn;
+            casted.setFocusable(false);
+            casted.setHorizontalAlignment(JButton.LEFT);
+            casted.setBorder(null);
+            casted.setBorder(BorderFactory.createEmptyBorder(0, x + 2, 0, 0));
+            casted.setBackground(this.getBackground());
+            casted.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+        }
 
 
 
         this.add(header);
         this.add(libraryContainer);
-
+        this.add(btnContainer);
     }
 }
