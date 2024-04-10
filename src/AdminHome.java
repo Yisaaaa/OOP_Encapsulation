@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,7 +8,7 @@ public class AdminHome  extends JFrame {
     public AdminHome() {
 //        this.setSize(650, 650);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Home");
+        this.setTitle("src.Home");
         this.setLocationRelativeTo(null);
 
         JPanel buttonPanel = new JPanel();

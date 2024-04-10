@@ -1,3 +1,5 @@
+package src;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ public class RoleLogin implements ActionListener {
 	
 	public RoleLogin(){
 		roleFrame = new JFrame();
+		roleFrame.setTitle("Welcome to Library");
 		
 		loginPanel = new JPanel();
 		loginPanel.setLayout(new GridLayout(2,1,0,10));
@@ -54,13 +57,15 @@ public class RoleLogin implements ActionListener {
 					System.out.println("Entered!");
 
 					roleFrame.dispose();
-					new AdminHome();
+					new Home(true);
 				} else {
 					JOptionPane.showMessageDialog(admin, "Wrong password!");
 				}
 			}
 		} else if (e.getSource() == user) {
 			System.out.println("logged in as user");
+			roleFrame.dispose();
+			new Home(false);
 
 		}
 	}

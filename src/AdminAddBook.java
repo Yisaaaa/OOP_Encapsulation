@@ -1,9 +1,9 @@
-//import javax.swing.*;
+package src;//import javax.swing.*;
 //import java.awt.*;
 //
-//public class AdminAddBook extends JFrame {
+//public class src.AdminAddBook extends JFrame {
 //
-//    public AdminAddBook() {
+//    public src.AdminAddBook() {
 //
 //        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        this.setSize(500, 500);
@@ -117,13 +117,12 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class AdminAddBook extends JFrame {
 
     public AdminAddBook() {
 
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
         this.setSize(500,600);
@@ -160,7 +159,7 @@ public class AdminAddBook extends JFrame {
             label.setFont(new Font("Verdana", Font.PLAIN, 16));
 
             component.setBounds(x, y, width, height);
-            component.setFont(new Font("Verdana", Font.PLAIN, 24));
+            component.setFont(new Font("Verdana", Font.PLAIN, 18));
             component.setBorder(BorderFactory.createLineBorder(Color.black, 2, true));
 
             label.setBounds(x, y - (labelHeight + 5), 100, labelHeight);
@@ -200,13 +199,11 @@ public class AdminAddBook extends JFrame {
 
 
             this.dispose();
-            new AdminHome();
 
         });
 
         cancelBtn.addActionListener(actionEvent -> {
             this.dispose();
-            new AdminHome();
         });
 
         btns.setBounds(x, y, width, height);
