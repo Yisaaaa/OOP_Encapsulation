@@ -9,9 +9,21 @@ import java.util.Objects;
 public class Home extends JFrame {
 
     private ArrayList<Book> books = new ArrayList<>();
-    private ArrayList<Book> displayedBooks = new ArrayList<>();
+    private ArrayList<Book> booksToDisplay = new ArrayList<>();
 
     public Home(boolean isAdmin) {
+//        Initializing books
+
+        for (int i = 0; i < 8; i++) {
+            booksToDisplay.add(new Book(
+                "Meditations",
+                "Marcus Aurelius",
+                "304",
+                "Books about meditation",
+                "/images/covers/meditations_MarcusAurelius.jpg"));
+        }
+
+
 //        Frame -----------------------------------
         int height = 900;
         int width = 1300;
@@ -21,6 +33,7 @@ public class Home extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setTitle("Library");
 
 
 //        SIDEBAR -----------------------------------
@@ -120,7 +133,7 @@ public class Home extends JFrame {
 //      BookList -------------------------------------
 
 
-        JPanel BookList = new BookList(width - sideBardWidth, height - 200);
+        JPanel BookList = new BookList(width - sideBardWidth, height - 200, booksToDisplay);
 
 
 
