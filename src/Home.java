@@ -3,16 +3,19 @@ package src;
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.DirectoryNotEmptyException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Home extends JFrame {
+
+    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Book> displayedBooks = new ArrayList<>();
 
     public Home(boolean isAdmin) {
 //        Frame -----------------------------------
         int height = 900;
         int width = 1300;
         int sideBardWidth = 250;
-
 
         this.setSize(width, height);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -117,11 +120,8 @@ public class Home extends JFrame {
 //      BookList -------------------------------------
 
 
-        JPanel BookList = new JPanel();
-        BookList.setPreferredSize(new Dimension(width - sideBardWidth, height - 200));
-        BookList.setBackground(Color.yellow);
-        BookList.setOpaque(true);
-        BookList.setLayout(new GridLayout(2, 4));
+        JPanel BookList = new BookList(width - sideBardWidth, height - 200);
+
 
 
         mainContainer.add(searchContainer, BorderLayout.PAGE_START);

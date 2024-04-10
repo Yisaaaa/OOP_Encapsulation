@@ -159,7 +159,7 @@ public class AdminAddBook extends JFrame {
             label.setFont(new Font("Verdana", Font.PLAIN, 16));
 
             component.setBounds(x, y, width, height);
-            component.setFont(new Font("Verdana", Font.PLAIN, 24));
+            component.setFont(new Font("Verdana", Font.PLAIN, 18));
             component.setBorder(BorderFactory.createLineBorder(Color.black, 2, true));
 
             label.setBounds(x, y - (labelHeight + 5), 100, labelHeight);
@@ -199,13 +199,11 @@ public class AdminAddBook extends JFrame {
 
 
             this.dispose();
-            new AdminHome();
 
         });
 
         cancelBtn.addActionListener(actionEvent -> {
             this.dispose();
-            new AdminHome();
         });
 
         btns.setBounds(x, y, width, height);
