@@ -2,32 +2,49 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.nio.file.DirectoryNotEmptyException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Home extends JFrame {
+public class Home extends JFrame implements ActionListener {
+
+    JButton prevBtn;
+    JButton nextBtn;
+    int height = 900;
+    int width = 1300;
+    int sideBardWidth = 250;
+    JPanel bookList;
+    JPanel mainContainer;
 
     private ArrayList<Book> books = new ArrayList<>();
     private ArrayList<Book> booksToDisplay = new ArrayList<>();
+    int currentPage = 0;
 
     public Home(boolean isAdmin) {
 //        Initializing books
+        for (int i = 0; i < 10; i++) {
+            books.add(new Book("Dune",
+                "Frank Herbert",
+                "230",
+                "Welcome to the world of dune",
+                "/images/covers/subtleArtOfNotGivingAFuck.jpg"
+                ));
+        }
 
-        for (int i = 0; i < 8; i++) {
-            booksToDisplay.add(new Book(
-                "Meditations",
-                "Marcus Aurelius",
-                "304",
-                "Books about meditation",
-                "/images/covers/meditations_MarcusAurelius.jpg"));
+//        Initial books to display
+        int start = currentPage * 8;
+        int end = Math.min(start + 8, books.size());
+        currentPage++;
+
+        for (int i = 0; i < end; i++) {
+            booksToDisplay.add(books.get(i));
         }
 
 
 //        Frame -----------------------------------
-        int height = 900;
-        int width = 1300;
-        int sideBardWidth = 250;
+
 
         this.setSize(width, height);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,7 +72,7 @@ public class Home extends JFrame {
 
 
 
-        JPanel mainContainer = new JPanel();
+        mainContainer = new JPanel();
         mainContainer.setLayout(new BorderLayout());
         mainContainer.setPreferredSize(new Dimension(width - sideBardWidth, height));
         mainContainer.setBackground(new Color(0xfafafa));
@@ -108,8 +125,11 @@ public class Home extends JFrame {
         pageBtnContainer.setOpaque(true);
         pageBtnContainer.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
-        JButton prevBtn = new JButton("<");
-        JButton nextBtn = new JButton(">");
+        prevBtn = new JButton("<");
+        prevBtn.addActionListener(this);
+
+        nextBtn = new JButton(">");
+        nextBtn.addActionListener(this);
 
 
         pageBtnContainer.add(prevBtn);
@@ -133,12 +153,13 @@ public class Home extends JFrame {
 //      BookList -------------------------------------
 
 
-        JPanel BookList = new BookList(width - sideBardWidth, height - 200, booksToDisplay);
+        bookList = new BookList(width - sideBardWidth, height - 200, booksToDisplay);
+
 
 
 
         mainContainer.add(searchContainer, BorderLayout.PAGE_START);
-        mainContainer.add(BookList, BorderLayout.CENTER);
+        mainContainer.add(bookList, BorderLayout.CENTER);
 
 
         this.add(mainContainer, BorderLayout.CENTER);
@@ -147,4 +168,92 @@ public class Home extends JFrame {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == nextBtn) {
+
+            int startIndex = currentPage * 8;
+
+            if (startIndex > books.size()) {
+                return;
+            }
+
+            int endIndex = Math.min(startIndex + 8, books.size());
+
+            System.out.println("\nnext");
+            System.out.println("currentpage " + currentPage);
+            System.out.println("start " + startIndex);
+            System.out.println("end " + endIndex);
+
+            booksToDisplay.clear();
+
+
+            for (int i = startIndex; i < endIndex; i++) {
+                booksToDisplay.add(books.get(i));
+            }
+
+            currentPage++;
+
+            mainContainer.remove(bookList);
+
+            bookList = new BookList(
+                width - sideBardWidth,
+                height - 200,
+                booksToDisplay);
+
+            mainContainer.add(bookList);
+            mainContainer.revalidate();
+            mainContainer.repaint();
+
+        } else if (actionEvent.getSource() == prevBtn) {
+            if (currentPage == 0) {
+                return;
+            }
+
+            if (currentPage - 2 < 0) {
+                currentPage = 0;
+            } else {
+                currentPage -= 2;
+            }
+
+            System.out.println("\nprev");
+            System.out.println("currentpage " + currentPage);
+
+            int startIndex = currentPage * 8;
+
+            if (startIndex > books.size()) {
+                return;
+            }
+
+            int endIndex = Math.min(startIndex + 8, books.size());
+
+            System.out.println("start " + startIndex);
+            System.out.println("end " + endIndex);
+
+            booksToDisplay.clear();
+
+
+            for (int i = startIndex; i < endIndex; i++) {
+                booksToDisplay.add(books.get(i));
+            }
+
+            System.out.println(booksToDisplay.size());
+
+            mainContainer.remove(bookList);
+
+
+            bookList = new BookList(
+                width - sideBardWidth,
+                height - 200,
+                booksToDisplay);
+
+            mainContainer.add(bookList);
+            mainContainer.revalidate();
+            mainContainer.repaint();
+
+            if (currentPage == 0) {
+                currentPage = 1;
+            }
+        }
+    }
 }
