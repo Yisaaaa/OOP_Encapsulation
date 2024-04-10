@@ -45,17 +45,18 @@ public class Home extends JFrame {
         mainContainer.setBackground(new Color(0xfafafa));
 
 
+// Search Bar --------------------------
 
         JPanel searchContainer = new JPanel();
         searchContainer.setBackground(null);
         searchContainer.setOpaque(true);
-        searchContainer.setPreferredSize(new Dimension(width - sideBardWidth, 150));
+        searchContainer.setPreferredSize(new Dimension(width - sideBardWidth, 140));
         searchContainer.setLayout(null);
 
         JPanel searchBar = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 0));
         searchBar.setBackground(null);
         searchBar.setOpaque(true);
-        searchBar.setBounds(0, 40, width - sideBardWidth, 60);
+        searchBar.setBounds(100, 40, width - sideBardWidth, 60);
 
         ImageIcon searchIcon = new ImageIcon(Objects.requireNonNull(Home.class.getResource("../images/search.png")));
         Image image = searchIcon.getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
@@ -84,20 +85,47 @@ public class Home extends JFrame {
         searchBar.add(titleInput);
         searchBar.add(searchBtn);
 
+//        Page Buttons
+        JPanel pageBtnContainer = new JPanel(new FlowLayout(FlowLayout.TRAILING, 0, 0));
+        pageBtnContainer.setBounds(0, 100, width - sideBardWidth, 40);
+        pageBtnContainer.setBackground(null);
+        pageBtnContainer.setOpaque(true);
+        pageBtnContainer.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+
+        JButton prevBtn = new JButton("<");
+        JButton nextBtn = new JButton(">");
 
 
+        pageBtnContainer.add(prevBtn);
+        pageBtnContainer.add(nextBtn);
+
+        for (Component btn : pageBtnContainer.getComponents()) {
+            JButton casted = (JButton) btn;
+            casted.setVerticalAlignment(JButton.CENTER);
+            casted.setVerticalTextPosition(JButton.CENTER);
+            casted.setPreferredSize(new Dimension(50, 40));
+            casted.setFont(new Font("DejaVu Sans", Font.BOLD, 19));
+            casted.setFocusable(false);
+            casted.setBackground(null);
+            casted.setBorder(null);
+
+        }
 
         searchContainer.add(searchBar);
+        searchContainer.add(pageBtnContainer);
+
+//      BookList -------------------------------------
 
 
-        JPanel BooksList = new JPanel();
-        BooksList.setPreferredSize(new Dimension(width - sideBardWidth, height - 200));
-        BooksList.setBackground(Color.yellow);
-        BooksList.setOpaque(true);
+        JPanel BookList = new JPanel();
+        BookList.setPreferredSize(new Dimension(width - sideBardWidth, height - 200));
+        BookList.setBackground(Color.yellow);
+        BookList.setOpaque(true);
+        BookList.setLayout(new GridLayout(2, 4));
 
 
         mainContainer.add(searchContainer, BorderLayout.PAGE_START);
-        mainContainer.add(BooksList, BorderLayout.CENTER);
+        mainContainer.add(BookList, BorderLayout.CENTER);
 
 
         this.add(mainContainer, BorderLayout.CENTER);
