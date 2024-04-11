@@ -59,11 +59,11 @@ public class Book {
         viewFrame.setTitle(this.getTitle());
 
         title = new JLabel( this.getTitle());
-        title.setFont(new Font("Sans-Serif", Font.BOLD,20));
+        title.setFont(new Font("Sans-Serif", Font.BOLD,24));
 
-        author = new JLabel("by: " + this.getAuthor());
-        author.setFont(new Font("Sans-Serif", Font.BOLD, 15));
-        author.setForeground(Color.RED);
+        author = new JLabel(this.getAuthor());
+        author.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
+        author.setForeground(new Color(0x868e96));
 
         pages = new JLabel("Pages: " + this.getPages());
         pages.setFont(new Font("Sans-Serif", Font.PLAIN, 15));
@@ -96,14 +96,14 @@ public class Book {
         imagePanel.add(imageLabel);
 
         JPanel descPanel = new JPanel();
-        desc= new JTextArea(this.getDesc());
+        desc = new JTextArea(this.getDesc());
         desc.setLineWrap(true);
         desc.setColumns(10);
         desc.setBackground(rightPanel.getBackground());
         desc.setCaretColor(rightPanel.getBackground());
         descPanel.setLayout(new BorderLayout());;
         descPanel.add(new JScrollPane(desc),BorderLayout.CENTER);
-        descPanel.setFont(new Font("Sans-Serif", Font.PLAIN, 15));
+        desc .setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         descPanel.setSize(imagePanel.getWidth(),0);
 
 //        add = new JButton("add");
@@ -127,6 +127,10 @@ public class Book {
         rightPanel.add(infoPanel,BorderLayout.NORTH);
         rightPanel.add(descPanel,BorderLayout.CENTER);
         rightPanel.add(buttonPanel,BorderLayout.PAGE_END);
+        rightPanel.setBackground(Color.red);
+        rightPanel.setOpaque(true);
+
+
 
         //for the arrangement of the text
         JPanel mainPanel = new JPanel();
