@@ -19,6 +19,8 @@ public class Home extends JFrame implements ActionListener {
 
     JButton prevBtn;
     JButton nextBtn;
+    JButton searchBtn;
+    JTextField titleInput;
     int height = 900;
     int width = 1300;
     int sideBardWidth = 250;
@@ -119,14 +121,15 @@ public class Home extends JFrame implements ActionListener {
         searchIconContainer.setIcon(searchIcon);
 
 
-        JTextField titleInput = new JTextField();
+        titleInput = new JTextField();
         titleInput.setPreferredSize(new Dimension(500, 30));
         titleInput.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         titleInput.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
         titleInput.setText("Search book...");
 
 
-        JButton searchBtn = new JButton("search");
+        searchBtn = new JButton("search");
+        searchBtn.addActionListener(this);
         searchBtn.setPreferredSize(new Dimension(100, 30));
         searchBtn.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         searchBtn.setOpaque(true);
@@ -272,6 +275,16 @@ public class Home extends JFrame implements ActionListener {
 
             if (currentPage == 0) {
                 currentPage = 1;
+            }
+        } else if (actionEvent.getSource() == searchBtn) {
+            String title = titleInput.getText();
+            System.out.println("saerch");
+            for (Book book : books) {
+                if (Objects.equals(book.getTitle().toLowerCase(), title.toLowerCase())) {
+                    book.viewBook(book);
+                } else {
+                    new JOptionPane("No book found");
+                }
             }
         }
     }

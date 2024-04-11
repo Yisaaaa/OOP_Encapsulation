@@ -84,7 +84,11 @@ public class Book {
 
 
         bookImage = new ImageIcon(Objects.requireNonNull(Book.class.getResource(this.getImage())));
-        
+        Image image = bookImage.getImage().getScaledInstance(
+            300,
+            viewFrame.getHeight() - 100,
+            Image.SCALE_SMOOTH);
+        bookImage =  new ImageIcon(image);
 
         JPanel imagePanel = new JPanel();
         JLabel imageLabel = new JLabel(bookImage);

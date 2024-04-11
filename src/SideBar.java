@@ -10,7 +10,9 @@ public class SideBar extends JPanel {
         int y = 40;
 
 
-        this.setBackground(new Color(0xEfEfEf));
+//        this.setBackground(new Color(0xEfEfEf));
+        this.setBackground(new Color(0xdee2e6));
+
         this.setOpaque(true);
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(null);
