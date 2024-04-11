@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class AdminHome  extends JFrame {
 
+    /* This file is to be deleted */
+
     public AdminHome() {
 //        this.setSize(650, 650);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

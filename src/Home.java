@@ -1,10 +1,17 @@
 package src;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.DirectoryNotEmptyException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,13 +31,24 @@ public class Home extends JFrame implements ActionListener {
 
     public Home(boolean isAdmin) {
 //        Initializing books
-        for (int i = 0; i < 10; i++) {
-            books.add(new Book("Dune",
-                "Frank Herbert",
-                "230",
-                "Welcome to the world of dune",
-                "/images/covers/subtleArtOfNotGivingAFuck.jpg"
-                ));
+//        for (int i = 0; i < 10; i++) {
+//            books.add(new Book("Dune",
+//                "Frank Herbert",
+//                "230",
+//                "Welcome to the world of dune",
+//                "/images/covers/the-subtle-art-of-not-giving-a-fuck.jpg"
+//                ));
+//        }
+//
+        Gson gson = new Gson();
+        try  {
+            String stringJson = readJsonStringFromFile("books.json");
+            java.lang.reflect.Type list = new TypeToken<ArrayList<Book>>(){}.getType();
+            books = gson.fromJson(stringJson, list);
+
+            System.out.println(books.get(0).getImage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 //        Initial books to display
@@ -153,10 +171,11 @@ public class Home extends JFrame implements ActionListener {
 //      BookList -------------------------------------
 
 
-        bookList = new BookList(width - sideBardWidth, height - 200, booksToDisplay);
-
-
-
+        bookList = new BookList(
+            width - sideBardWidth,
+            height - 200,
+            booksToDisplay
+        );
 
         mainContainer.add(searchContainer, BorderLayout.PAGE_START);
         mainContainer.add(bookList, BorderLayout.CENTER);
@@ -255,5 +274,17 @@ public class Home extends JFrame implements ActionListener {
                 currentPage = 1;
             }
         }
+    }
+
+    public static String readJsonStringFromFile(String filePath) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try (FileReader reader = new FileReader(filePath)) {
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }
