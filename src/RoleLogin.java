@@ -8,9 +8,11 @@ import javax.swing.*;
 public class RoleLogin implements ActionListener {
 	
 	JFrame roleFrame;
+	JLabel welcomeLabel;
 	JPanel loginPanel;
 	JButton admin;
 	JButton user;
+	ImageIcon background;
 	
 	public static String pass() {
 		return "password";
@@ -21,24 +23,38 @@ public class RoleLogin implements ActionListener {
 		roleFrame.setTitle("Welcome to Library");
 		
 		loginPanel = new JPanel();
-		loginPanel.setLayout(new GridLayout(2,1,0,10));
+		loginPanel.setLayout(new GridLayout(2,1,0,20));
 		loginPanel.setBounds(45, 100, 400, 250);
-		
+
+		welcomeLabel = new JLabel("Welcome to Library");
+		welcomeLabel.setFont(new Font("Serif", Font.BOLD, 50));
+		welcomeLabel.setBounds(0,5,500,50);
+
 		admin = new JButton("Admin");
+		admin.setBackground(Color.orange);
+		admin.setFont(new Font("Serif", Font.BOLD, 30));
 		admin.addActionListener(this);
 		
 		user = new JButton("User");
+		user.setBackground(Color.orange);
+		user.setFont(new Font("Serif", Font.BOLD, 30));
 		user.addActionListener(this);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBackground(Color.white);
+		layeredPane.setBounds(0,0,500,500);
 		
 		roleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		roleFrame.setLayout(null);
+		roleFrame.setLayout(new BorderLayout());
 		roleFrame.setSize(500, 500);
 		roleFrame.setResizable(false);
 		roleFrame.setLocationRelativeTo(null);
-		
+
 		loginPanel.add(admin);
 		loginPanel.add(user);
-		roleFrame.add(loginPanel);
+		layeredPane.add(welcomeLabel);
+		layeredPane.add(loginPanel);
+		roleFrame.add(layeredPane);
 		roleFrame.setVisible(true);
 
 
