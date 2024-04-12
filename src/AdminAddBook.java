@@ -1,10 +1,17 @@
 package src;//import javax.swing.*;
 
+import com.google.gson.Gson;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class AdminAddBook extends JFrame {
+
+    Gson gson = new Gson();
 
     public AdminAddBook(ArrayList<Book> books, JFrame home) {
 
@@ -14,6 +21,7 @@ public class AdminAddBook extends JFrame {
         this.setSize(500,600);
         this.setTitle("Add book");
         this.setLocationRelativeTo(null);
+
 
         JTextField title = new JTextField();
         JTextField author = new JTextField();
@@ -91,7 +99,12 @@ public class AdminAddBook extends JFrame {
                 "/images/covers/no-cover.png"
             ));
 
-
+            try (PrintWriter writer = new PrintWriter("books.json")) {
+                String jsonString = gson.toJson(books);
+                writer.println(jsonString);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             this.dispose();
 

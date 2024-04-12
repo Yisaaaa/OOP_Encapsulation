@@ -106,12 +106,12 @@ public class Book {
         desc .setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         descPanel.setSize(imagePanel.getWidth(),0);
 
-//        add = new JButton("add");
-//        add.setFont(new Font("Sans-Serif", Font.PLAIN, 15));
-//        add.setFocusable(false);
-//        add.addActionListener(actionEvent -> {
-//
-//        });
+        add = new JButton("delete");
+        add.setFont(new Font("Sans-Serif", Font.PLAIN, 15));
+        add.setFocusable(false);
+        add.addActionListener(actionEvent -> {
+
+        });
 
         ok = new JButton("ok");
         ok.setFont(new Font("Sans-Serif", Font.PLAIN, 15));

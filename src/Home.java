@@ -200,8 +200,6 @@ public class Home extends JFrame implements ActionListener {
             currentPage++;
             int startIndex = (currentPage -1 ) * 8;
 
-
-
             int endIndex = Math.min(startIndex + 8, books.size());
 
             System.out.println("\nnext");
