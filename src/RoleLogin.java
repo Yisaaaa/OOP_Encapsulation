@@ -27,18 +27,21 @@ public class RoleLogin implements ActionListener {
 		loginPanel.setBounds(45, 100, 400, 250);
 
 		welcomeLabel = new JLabel("Welcome to Library");
-		welcomeLabel.setFont(new Font("Serif", Font.BOLD, 50));
+		welcomeLabel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		welcomeLabel.setFont(new Font("Sans Serif", Font.BOLD, 50));
 		welcomeLabel.setBounds(0,5,500,50);
 
 		admin = new JButton("Admin");
 		admin.setBackground(Color.orange);
 		admin.setFont(new Font("Serif", Font.BOLD, 30));
 		admin.addActionListener(this);
+		admin.setFocusable(false);
 		
 		user = new JButton("User");
 		user.setBackground(Color.orange);
 		user.setFont(new Font("Serif", Font.BOLD, 30));
 		user.addActionListener(this);
+		user.setFocusable(false);
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBackground(Color.white);
