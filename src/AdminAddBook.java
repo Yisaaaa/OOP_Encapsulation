@@ -2,10 +2,11 @@ package src;//import javax.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AdminAddBook extends JFrame {
 
-    public AdminAddBook() {
+    public AdminAddBook(ArrayList<Book> books, JFrame home) {
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -81,6 +82,15 @@ public class AdminAddBook extends JFrame {
             System.out.println(bookAuthor);
             System.out.println(bookPages);
             System.out.println(bookDesc);
+
+            books.add(new Book(
+                bookTitle,
+                bookAuthor,
+                bookPages,
+                bookDesc,
+                "/images/covers/no-cover.png"
+            ));
+
 
 
             this.dispose();

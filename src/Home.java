@@ -82,7 +82,7 @@ public class Home extends JFrame implements ActionListener {
 //
 //        JLabel sideBard
 
-        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin, this);
+        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin, this, books);
 
 
 

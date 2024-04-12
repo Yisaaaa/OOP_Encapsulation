@@ -2,10 +2,11 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SideBar extends JPanel {
-    public SideBar(int width, int height, boolean isAdmin, JFrame parent) {
+    public SideBar(int width, int height, boolean isAdmin, JFrame parent, ArrayList<Book> books) {
         int x = 30;
         int y = 40;
 
@@ -69,7 +70,7 @@ public class SideBar extends JPanel {
 
             JButton addBookBtn = new JButton("Add Book");
             addBookBtn.addActionListener(actionEvent -> {
-                new AdminAddBook();
+                new AdminAddBook(books, parent);
             });
             btnContainer.add(addBookBtn);
 
