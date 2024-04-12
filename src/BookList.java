@@ -16,8 +16,8 @@ public class BookList extends JPanel{
         for (Book book : books) {
             JPanel bookContainer = new BookContainer((width - 5 * 4) / 4, (height - 5 * 2) / 2, book);
 
-            System.out.println(book.getTitle());
-            System.out.println(book.getImage());
+//            System.out.println(book.getTitle());
+//            System.out.println(book.getImage());
 
             JLabel coverAndTitle = new JLabel();
             ImageIcon coverImg = new ImageIcon(Objects.requireNonNull(BookList.class.getResource(book.getImage())));

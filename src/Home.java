@@ -29,7 +29,7 @@ public class Home extends JFrame implements ActionListener {
 
     private ArrayList<Book> books = new ArrayList<>();
     private ArrayList<Book> booksToDisplay = new ArrayList<>();
-    int currentPage = 0;
+    int currentPage = 1;
 
     public Home(boolean isAdmin) {
 //        Initializing books
@@ -54,9 +54,8 @@ public class Home extends JFrame implements ActionListener {
         }
 
 //        Initial books to display
-        int start = currentPage * 8;
+        int start = (currentPage - 1) * 8;
         int end = Math.min(start + 8, books.size());
-        currentPage++;
 
         for (int i = 0; i < end; i++) {
             booksToDisplay.add(books.get(i));
@@ -194,11 +193,14 @@ public class Home extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == nextBtn) {
 
-            int startIndex = currentPage * 8;
-
-            if (startIndex > books.size()) {
+            if (currentPage * 8 >= books.size()) {
                 return;
             }
+
+            currentPage++;
+            int startIndex = (currentPage -1 ) * 8;
+
+
 
             int endIndex = Math.min(startIndex + 8, books.size());
 
@@ -214,8 +216,6 @@ public class Home extends JFrame implements ActionListener {
                 booksToDisplay.add(books.get(i));
             }
 
-            currentPage++;
-
             mainContainer.remove(bookList);
 
             bookList = new BookList(
@@ -228,20 +228,22 @@ public class Home extends JFrame implements ActionListener {
             mainContainer.repaint();
 
         } else if (actionEvent.getSource() == prevBtn) {
-            if (currentPage == 0) {
+            if (currentPage == 1) {
                 return;
             }
 
-            if (currentPage - 2 < 0) {
-                currentPage = 0;
-            } else {
-                currentPage -= 2;
-            }
+//            if (currentPage - 2 < 0) {
+//                currentPage = 0;
+//            } else {
+//                currentPage -= 2;
+//            }
+
+            currentPage--;
 
             System.out.println("\nprev");
             System.out.println("currentpage " + currentPage);
 
-            int startIndex = currentPage * 8;
+            int startIndex = (currentPage - 1) * 8;
 
             if (startIndex > books.size()) {
                 return;
@@ -273,9 +275,9 @@ public class Home extends JFrame implements ActionListener {
             mainContainer.revalidate();
             mainContainer.repaint();
 
-            if (currentPage == 0) {
-                currentPage = 1;
-            }
+//            if (currentPage == 0) {
+//                currentPage = 1;
+//            }
         } else if (actionEvent.getSource() == searchBtn) {
             String title = titleInput.getText();
             System.out.println("saerch");
