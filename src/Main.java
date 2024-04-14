@@ -3,6 +3,7 @@ package src;
 public class Main {
 
     public static void main(String[] args) {
-        new Home(true);
+//        new Home(true);
+        new RoleLogin();
     }
 }

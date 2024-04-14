@@ -1,10 +1,17 @@
 package src;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.DirectoryNotEmptyException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -12,6 +19,8 @@ public class Home extends JFrame implements ActionListener {
 
     JButton prevBtn;
     JButton nextBtn;
+    JButton searchBtn;
+    JTextField titleInput;
     int height = 900;
     int width = 1300;
     int sideBardWidth = 250;
@@ -20,23 +29,33 @@ public class Home extends JFrame implements ActionListener {
 
     private ArrayList<Book> books = new ArrayList<>();
     private ArrayList<Book> booksToDisplay = new ArrayList<>();
-    int currentPage = 0;
+    int currentPage = 1;
 
     public Home(boolean isAdmin) {
 //        Initializing books
-        for (int i = 0; i < 10; i++) {
-            books.add(new Book("Dune",
-                "Frank Herbert",
-                "230",
-                "Welcome to the world of dune",
-                "/images/covers/subtleArtOfNotGivingAFuck.jpg"
-                ));
+//        for (int i = 0; i < 10; i++) {
+//            books.add(new Book("Dune",
+//                "Frank Herbert",
+//                "230",
+//                "Welcome to the world of dune",
+//                "/images/covers/the-subtle-art-of-not-giving-a-fuck.jpg"
+//                ));
+//        }
+//
+        Gson gson = new Gson();
+        try  {
+            String stringJson = readJsonStringFromFile("books.json");
+            java.lang.reflect.Type list = new TypeToken<ArrayList<Book>>(){}.getType();
+            books = gson.fromJson(stringJson, list);
+
+            System.out.println(books.get(0).getImage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 //        Initial books to display
-        int start = currentPage * 8;
+        int start = (currentPage - 1) * 8;
         int end = Math.min(start + 8, books.size());
-        currentPage++;
 
         for (int i = 0; i < end; i++) {
             booksToDisplay.add(books.get(i));
@@ -62,7 +81,7 @@ public class Home extends JFrame implements ActionListener {
 //
 //        JLabel sideBard
 
-        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin, this);
+        JPanel sidebar = new SideBar(sideBardWidth, height, isAdmin, this, books);
 
 
 
@@ -101,14 +120,15 @@ public class Home extends JFrame implements ActionListener {
         searchIconContainer.setIcon(searchIcon);
 
 
-        JTextField titleInput = new JTextField();
+        titleInput = new JTextField();
         titleInput.setPreferredSize(new Dimension(500, 30));
         titleInput.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         titleInput.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
         titleInput.setText("Search book...");
 
 
-        JButton searchBtn = new JButton("search");
+        searchBtn = new JButton("search");
+        searchBtn.addActionListener(this);
         searchBtn.setPreferredSize(new Dimension(100, 30));
         searchBtn.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
         searchBtn.setOpaque(true);
@@ -153,10 +173,11 @@ public class Home extends JFrame implements ActionListener {
 //      BookList -------------------------------------
 
 
-        bookList = new BookList(width - sideBardWidth, height - 200, booksToDisplay);
-
-
-
+        bookList = new BookList(
+            width - sideBardWidth,
+            height - 200,
+            booksToDisplay
+        );
 
         mainContainer.add(searchContainer, BorderLayout.PAGE_START);
         mainContainer.add(bookList, BorderLayout.CENTER);
@@ -172,11 +193,12 @@ public class Home extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == nextBtn) {
 
-            int startIndex = currentPage * 8;
-
-            if (startIndex > books.size()) {
+            if (currentPage * 8 >= books.size()) {
                 return;
             }
+
+            currentPage++;
+            int startIndex = (currentPage -1 ) * 8;
 
             int endIndex = Math.min(startIndex + 8, books.size());
 
@@ -192,8 +214,6 @@ public class Home extends JFrame implements ActionListener {
                 booksToDisplay.add(books.get(i));
             }
 
-            currentPage++;
-
             mainContainer.remove(bookList);
 
             bookList = new BookList(
@@ -206,20 +226,22 @@ public class Home extends JFrame implements ActionListener {
             mainContainer.repaint();
 
         } else if (actionEvent.getSource() == prevBtn) {
-            if (currentPage == 0) {
+            if (currentPage == 1) {
                 return;
             }
 
-            if (currentPage - 2 < 0) {
-                currentPage = 0;
-            } else {
-                currentPage -= 2;
-            }
+//            if (currentPage - 2 < 0) {
+//                currentPage = 0;
+//            } else {
+//                currentPage -= 2;
+//            }
+
+            currentPage--;
 
             System.out.println("\nprev");
             System.out.println("currentpage " + currentPage);
 
-            int startIndex = currentPage * 8;
+            int startIndex = (currentPage - 1) * 8;
 
             if (startIndex > books.size()) {
                 return;
@@ -251,9 +273,31 @@ public class Home extends JFrame implements ActionListener {
             mainContainer.revalidate();
             mainContainer.repaint();
 
-            if (currentPage == 0) {
-                currentPage = 1;
+//            if (currentPage == 0) {
+//                currentPage = 1;
+//            }
+        } else if (actionEvent.getSource() == searchBtn) {
+            String title = titleInput.getText();
+            System.out.println("saerch");
+            for (Book book : books) {
+                if (Objects.equals(book.getTitle().toLowerCase(), title.toLowerCase())) {
+                    book.viewBook(book);
+                } else {
+                    new JOptionPane("No book found");
+                }
             }
         }
+    }
+
+    public static String readJsonStringFromFile(String filePath) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try (FileReader reader = new FileReader(filePath)) {
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -7,7 +7,10 @@ import java.awt.event.MouseListener;
 
 public class BookContainer extends JPanel implements MouseListener {
 
-    public BookContainer(int width, int height) {
+    Book book;
+    public BookContainer(int width, int height, Book book) {
+        addMouseListener(this);
+        this.book = book;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension((width - 5 * 4) / 4, (height - 5 * 2) / 2));
         this.setBackground(null);
@@ -16,7 +19,8 @@ public class BookContainer extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        System.out.println("clicked");
+        book.viewBook(book);
     }
 
     @Override

@@ -2,15 +2,18 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SideBar extends JPanel {
-    public SideBar(int width, int height, boolean isAdmin, JFrame parent) {
+    public SideBar(int width, int height, boolean isAdmin, JFrame parent, ArrayList<Book> books) {
         int x = 30;
         int y = 40;
 
 
-        this.setBackground(new Color(0xEfEfEf));
+//        this.setBackground(new Color(0xEfEfEf));
+        this.setBackground(new Color(0xdee2e6));
+
         this.setOpaque(true);
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(null);
@@ -67,7 +70,7 @@ public class SideBar extends JPanel {
 
             JButton addBookBtn = new JButton("Add Book");
             addBookBtn.addActionListener(actionEvent -> {
-                new AdminAddBook();
+                new AdminAddBook(books, parent);
             });
             btnContainer.add(addBookBtn);
 

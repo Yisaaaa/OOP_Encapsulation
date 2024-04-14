@@ -1,126 +1,19 @@
 package src;//import javax.swing.*;
-//import java.awt.*;
-//
-//public class src.AdminAddBook extends JFrame {
-//
-//    public src.AdminAddBook() {
-//
-//        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        this.setSize(500, 500);
-//
-//        JPanel form = new JPanel();
-//        form.setLayout(new GridLayout(4, 1));
-//
-//        JPanel titleContainer = new JPanel();
-//        titleContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 10));
-//        titleContainer.setBackground(Color.blue);
-//        titleContainer.setOpaque(true);
-//        titleContainer.setSize(20, 20);
-//
-//        JLabel titleText = new JLabel("Title");
-//        titleText.setFont(new Font("Consolas", Font.PLAIN, 22));
-//
-//        JTextField title = new JTextField();
-//        title.setFont(new Font("Consolas", Font.PLAIN, 22));
-//        title.setPreferredSize(new Dimension(300, 30));
-//
-//        titleContainer.add(titleText);
-//        titleContainer.add(title);
-//
-//
-//
-//
-////
-//
-//        JPanel authorContainer = new JPanel();
-//        authorContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 10));
-//        authorContainer.setBackground(Color.red);
-//        authorContainer.setOpaque(true);
-//
-//        JLabel authorText = new JLabel("Author");
-//        authorText.setFont(new Font("Consolas", Font.PLAIN, 22));
-//
-//        JTextField author = new JTextField();
-//        author.setFont(new Font("Consolas", Font.PLAIN, 22));
-//        author.setPreferredSize(new Dimension(300, 30));
-//
-//        authorContainer.add(authorText);
-//        authorContainer.add(author);
-//
-////
-//
-//        JPanel pagesContainer = new JPanel();
-//        pagesContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 10));
-////        pagesContainer.setBackground(Color.yellow);
-////        pagesContainer.setOpaque(true);
-//
-//
-//        JLabel pagesText = new JLabel("Pages");
-//        pagesText.setFont(new Font("Consolas", Font.PLAIN, 22));
-//
-//        JTextField pages = new JTextField();
-//        pages.setFont(new Font("Consolas", Font.PLAIN, 22));
-//        pages.setPreferredSize(new Dimension(300, 30));
-//
-//        pagesContainer.add(pagesText);
-//        pagesContainer.add(pages);
-//
-////
-//
-//        JPanel descriptionContainer = new JPanel();
-//        descriptionContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 10));
-////        descriptionContainer.setBackground(Color.green);
-////        descriptionContainer.setOpaque(true);
-//
-//        JLabel descriptionText = new JLabel("Description");
-//        descriptionText.setFont(new Font("Consolas", Font.PLAIN, 22));
-//
-////        JTextField description = new JTextField();
-//        JTextArea description = new JTextArea(3, 30);
-//        description.setLineWrap(true);
-//
-//        description.setFont(new Font("Consolas", Font.PLAIN, 22));
-//        description.setPreferredSize(new Dimension(300, 30));
-//
-//        descriptionContainer.add(descriptionText);
-//        descriptionContainer.add(description);
-//
-////
-//
-//
-//
-//
-//
-//        titleContainer.setPreferredSize(new Dimension(300, 10));
-//        authorContainer.setPreferredSize(new Dimension(300, 10));
-//        pagesContainer.setPreferredSize(new Dimension(300, 10));
-//        description.setPreferredSize(new Dimension(300, 10));
-//
-//
-//
-//
-//
-//        form.add(titleContainer);
-//        form.add(authorContainer);
-//        form.add(pagesContainer);
-//        form.add(descriptionContainer);
-//
-//        this.add(form, BorderLayout.CENTER);
-//
-//        this.setVisible(true);
-//
-//
-//
-//    }
-//
-//}
+
+import com.google.gson.Gson;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class AdminAddBook extends JFrame {
 
-    public AdminAddBook() {
+    Gson gson = new Gson();
+
+    public AdminAddBook(ArrayList<Book> books, JFrame home) {
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -128,6 +21,7 @@ public class AdminAddBook extends JFrame {
         this.setSize(500,600);
         this.setTitle("Add book");
         this.setLocationRelativeTo(null);
+
 
         JTextField title = new JTextField();
         JTextField author = new JTextField();
@@ -197,6 +91,20 @@ public class AdminAddBook extends JFrame {
             System.out.println(bookPages);
             System.out.println(bookDesc);
 
+            books.add(new Book(
+                bookTitle,
+                bookAuthor,
+                bookPages,
+                bookDesc,
+                "/images/covers/no-cover.png"
+            ));
+
+            try (PrintWriter writer = new PrintWriter("books.json")) {
+                String jsonString = gson.toJson(books);
+                writer.println(jsonString);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             this.dispose();
 
