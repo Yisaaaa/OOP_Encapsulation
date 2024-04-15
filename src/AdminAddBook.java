@@ -13,7 +13,7 @@ public class AdminAddBook extends JFrame {
 
     Gson gson = new Gson();
 
-    public AdminAddBook(ArrayList<Book> books, JFrame home) {
+    public AdminAddBook(ArrayList<Book> books, Home home) {
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -102,6 +102,33 @@ public class AdminAddBook extends JFrame {
             try (PrintWriter writer = new PrintWriter("books.json")) {
                 String jsonString = gson.toJson(books);
                 writer.println(jsonString);
+
+
+                int startIndex = (home.currentPage - 1) * 8;
+
+                int endIndex = Math.min(startIndex + 8, books.size());
+
+                home.booksToDisplay.clear();
+
+                for (int i = startIndex; i < endIndex; i++) {
+                    home.booksToDisplay.add(books.get(i));
+                }
+
+                System.out.println(home.booksToDisplay.size());
+
+                home.mainContainer.remove(home.bookList);
+
+                System.out.println(home.booksToDisplay.size());
+                home.bookList = new BookList(
+                    width - home.sideBardWidth,
+                    height - 200,
+                    home.booksToDisplay);
+
+                home.mainContainer.add(home.bookList);
+                home.getMainContainer().revalidate();
+                home.getMainContainer().repaint();
+
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

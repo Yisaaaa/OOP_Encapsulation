@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SideBar extends JPanel {
-    public SideBar(int width, int height, boolean isAdmin, JFrame parent, ArrayList<Book> books) {
+    public SideBar(int width, int height, boolean isAdmin, Home parent, ArrayList<Book> books) {
         int x = 30;
         int y = 40;
 

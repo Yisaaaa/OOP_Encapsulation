@@ -28,7 +28,7 @@ public class Home extends JFrame implements ActionListener {
     JPanel mainContainer;
 
     private ArrayList<Book> books = new ArrayList<>();
-    private ArrayList<Book> booksToDisplay = new ArrayList<>();
+    ArrayList<Book> booksToDisplay = new ArrayList<>();
     int currentPage = 1;
 
     public Home(boolean isAdmin) {
@@ -299,5 +299,9 @@ public class Home extends JFrame implements ActionListener {
             }
         }
         return sb.toString();
+    }
+
+    public JPanel getMainContainer() {
+        return mainContainer;
     }
 }
